@@ -4,6 +4,24 @@ import tauriCircles from './tauri.svg'
 import tauriWord from './wordmark.svg'
 import './App.css'
 
+import { listen } from '@tauri-apps/api/event'
+
+async function setup() {
+  for (const event of [
+    'tauri://resize',
+    'tauri://move',
+    'tauri://close-requested',
+    'tauri://focus',
+    'tauri://blur',
+  ]) {
+    await listen(event, (...args) => {
+      console.log(event, args);
+    });
+  }
+}
+
+setup();
+
 function App() {
   return (
     <div className="App">
