@@ -4,6 +4,22 @@ import tauriCircles from './tauri.svg'
 import tauriWord from './wordmark.svg'
 import './App.css'
 
+import { window as tauriWindow } from '@tauri-apps/api';
+
+async function setup() {
+  const w = new tauriWindow.WebviewWindow('child', {
+    title: 'Child',
+    resizable: true,
+    width: 700,
+    height: 600,
+    // url: "http://localhost:3000/child.html" // Can't listen to events on external assets.  Raises errors like "Exception with thrown value: TypeError: window['28993c4b-f136-4db8-a5de-1fc4a2f7cbb8'] is not a function."
+    url: "child.html"
+  });
+  await w.listen('tauri://move', event => console.log(event));
+}
+
+setup();
+
 function App() {
   return (
     <div className="App">
