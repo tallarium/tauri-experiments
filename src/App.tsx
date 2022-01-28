@@ -15,7 +15,8 @@ async function setup() {
     // url: "http://localhost:3000/child.html" // Can't listen to events on external assets.  Raises errors like "Exception with thrown value: TypeError: window['28993c4b-f136-4db8-a5de-1fc4a2f7cbb8'] is not a function."
     url: "child.html"
   });
-  await w.listen('tauri://move', event => console.log(event));
+  setTimeout(() => console.log('all', tauriWindow.getAll()), 2000);
+  console.log(tauriWindow.getAll());
 }
 
 setup();
