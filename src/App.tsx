@@ -4,16 +4,15 @@ import tauriCircles from './tauri.svg'
 import tauriWord from './wordmark.svg'
 import './App.css'
 
+import { window } from '@tauri-apps/api';
 import { listen } from '@tauri-apps/api/event'
 
 async function setup() {
-  for (const event of [
-    'tauri://close-requested',
-  ]) {
-    await listen(event, (...args) => {
-      console.log(event, args);
-    });
-  }
+  await listen('tauri://close-requested', async (...args) => {
+    console.log('close requested', args);
+    // Close request will be blocked.  So we would need to explicitly close the window.
+    // await window.getCurrent().close();
+  });
 }
 
 setup();
